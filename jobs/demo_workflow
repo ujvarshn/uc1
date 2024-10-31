@@ -1,0 +1,92 @@
+{
+  "name": "Demo_workflow",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "notebook1",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/ujjwalvarshney28nov1994@gmail.com/uc1/Project1/Notebook1",
+        "source": "WORKSPACE"
+      },
+      "job_cluster_key": "Job_cluster",
+      "libraries": [
+        {
+          "pypi": {
+            "package": "pandas"
+          }
+        }
+      ],
+      "max_retries": 1,
+      "min_retry_interval_millis": 900000,
+      "retry_on_timeout": false,
+      "timeout_seconds": 0,
+      "email_notifications": {
+        "on_start": [
+          "ujjwalvarshney28nov@gmail.com"
+        ],
+        "on_success": [
+          "ujjwalvarshney28nov@gmail.com"
+        ],
+        "on_failure": [
+          "ujjwalvarshney28nov@gmail.com"
+        ]
+      },
+      "notification_settings": {
+        "no_alert_for_skipped_runs": false,
+        "no_alert_for_canceled_runs": false,
+        "alert_on_last_attempt": false
+      },
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "Notebook2",
+      "depends_on": [
+        {
+          "task_key": "notebook1"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/ujjwalvarshney28nov1994@gmail.com/uc1/Project1/Notebook2",
+        "source": "WORKSPACE"
+      },
+      "job_cluster_key": "Job_cluster",
+      "timeout_seconds": 0,
+      "email_notifications": {}
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "Job_cluster",
+      "new_cluster": {
+        "cluster_name": "",
+        "spark_version": "15.4.x-scala2.12",
+        "azure_attributes": {
+          "first_on_demand": 1,
+          "availability": "ON_DEMAND_AZURE",
+          "spot_bid_max_price": -1
+        },
+        "node_type_id": "Standard_D4ds_v5",
+        "spark_env_vars": {
+          "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+        },
+        "enable_elastic_disk": true,
+        "data_security_mode": "SINGLE_USER",
+        "runtime_engine": "PHOTON",
+        "num_workers": 8
+      }
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "run_as": {
+    "user_name": "ujjwalvarshney28nov1994@gmail.com"
+  }
+}
